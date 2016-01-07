@@ -23,8 +23,6 @@ BOOL sl_Create(SL_LIST *plist, int size)
       if (pnode == NULL)
          return FALSE;
       pnode->data = 0;
-      //pnode->next = (*plist)->next;
-      //(*plist)->next = pnode;
       rnode->next = pnode;
       rnode = pnode; 
    }
@@ -168,6 +166,56 @@ BOOL sl_Find(SL_LIST list, int *pos, int data)
 }
 
 /*
+** select method return a new sorted list
+*/
+SL_LIST sl_SelectSort(SL_LIST list)
+{
+   pSL_NODE pfirst, ptail;
+   pSL_NODE ppremin, pmin;
+   pSL_NODE pnode;
+
+   pfirst = NULL;
+   while (NULL != list)
+   {
+      /* find the min node */
+      for (pnode = list, pmin = list; NULL != pnode->next; pnode = pnode->next)
+      {
+         if (pnode->next->data < pmin->data)
+         {
+            ppremin = pnode;
+            pmin = pnode->next;
+         }
+      }
+
+      /* create new list with min node */
+      if (NULL == pfirst)
+      {
+         pfirst = pmin;
+         ptail = pmin;
+      }
+      else
+      {
+         ptail->next = pmin;
+         ptail = pmin;
+      }
+
+      /* remove the min node from the old list */
+      if (pmin == list)
+         list = list->next;
+      else
+         ppremin->next = pmin->next;      
+      
+   }
+
+   if (NULL != pfirst)
+      ptail->next = NULL;
+
+   list = pfirst;
+   return list;
+   
+}
+
+/*
 ** return the length without counting header node
 */
 int sl_Size(SL_LIST list)
@@ -229,3 +277,15 @@ BOOL isExistLookBackUp(SL_LIST list)
    
    return FALSE;
 }
+
+void sl_Print(SL_LIST list)  
+{  
+    pSL_NODE pnode = list->next;  
+    printf("List->");  
+    while(pnode != NULL)  
+    {  
+        printf("%d - >", pnode->data);  
+        pnode= pnode->next;  
+    }  
+    printf("NULL\n");  
+}  

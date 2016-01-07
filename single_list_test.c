@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include <stdlib.h>
 #include "single_list.h"
 
 #define LIST_SIZE_DEFAULT (3)
@@ -15,7 +16,7 @@ int main(void)
    printf("\nInput the required single list size:\n");
    scanf("%d", &LIST_SIZE);
    LIST_SIZE = (LIST_SIZE <= 0) ? LIST_SIZE_DEFAULT : LIST_SIZE;
-   //create list with header node
+   /* create list with header node */
    sl_Create(&list, LIST_SIZE);
    printf("\nCreate single list size is %d\n",size = sl_Size(list));
    for (i = 1; i <= LIST_SIZE; i++)
@@ -24,11 +25,12 @@ int main(void)
          printf("initial list, get position %d element data is: %d\n", i, data);
    }
 
-   //set list elements
+   /* set list elements */
    printf("\n");
+   srand((unsigned int) time(NULL));
    for (i = 1; i <= LIST_SIZE; i++)
    {
-      sl_Set(list, i, i);
+      sl_Set(list, i, rand()%101);
    }
    for (i = 1; i <= LIST_SIZE; i++)
    {
@@ -36,7 +38,7 @@ int main(void)
          printf("set list, get position %d element data is: %d\n", i, data);
    }
 
-   //delete list element
+   /* delete list element */
    printf("\nChoose position(1-N) to delete:\n");
    scanf("%d", &position);
    if (sl_Delete(list, position, &data))
@@ -47,7 +49,7 @@ int main(void)
          printf("delete list, get position %d element data is: %d\n", i, data);
    }
 
-   //insert list element
+   /* insert list element */
    printf("\nChoose position(1-N) to insert:\n");
    scanf("%d", &position);
    printf("\nSet data(int) to insert:\n");
@@ -61,7 +63,7 @@ int main(void)
          printf("insert list, get position %d element data is: %d\n", i, data);
    }
 
-   //find list element
+   /* find list element */
    printf("\nInput data(int) to find:\n");
    scanf("%d", &data);
    if (sl_Find(list, &position, data))
@@ -69,7 +71,7 @@ int main(void)
    else
       printf("can't find data %d in the list\n", data);
 
-   //check loop
+   /* check loop */
    printf("\nCheck list isExistLookBackup: %d\n", isExistLookBackUp(list));
    printf("\nInput enable(0/1) list loop in the list:\n");
    int en_loop = 0;
@@ -81,7 +83,17 @@ int main(void)
       return 0;
    }
 
-   //is empty
+   /* sort the list */
+   printf("\nSort the list:\n");
+   list = sl_SelectSort(list);
+   sl_Print( list);
+   for (i = 1; i <= sl_Size(list); i++)
+   {
+      if (sl_Get(list, i, &data))
+         printf("sort list, get position %d element data is: %d\n", i, data);
+   }
+   
+   /* is empty */
    printf("\nCheck list isEmpty:\n");
    size = sl_Size(list);
    while (size--)
@@ -91,7 +103,7 @@ int main(void)
      
    }
    
-   //list clear
+   /* list clear */
    printf("\nClear the list: %d\n", sl_Clear(&list));
    if (list == NULL)
       printf("the list has been clear.\n");
