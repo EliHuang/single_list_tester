@@ -27,15 +27,6 @@ BOOL sl_Find(SL_LIST list, int* pos, int data);
 
 SL_LIST sl_SelectSort(SL_LIST list);
 
-/*
-**    [Header *]--------->[L *]----------->[S *]--------->[ ]
-**  p1               p1->n         p1->n->n
-**                                    @1 p2          p2->n
-**                 @4              @3              @2      
-**    [Header *]--------->[S *]----------->[L *]--------->[ ]
-**   |-------------@5------------->|
-**   |pcurmax                      |pcurmax
-*/
 SL_LIST sl_BubbleSort(SL_LIST list);
 
 int sl_Size(SL_LIST list);
