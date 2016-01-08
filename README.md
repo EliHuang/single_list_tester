@@ -1,5 +1,8 @@
 # single_list_tester
-a single linked list implementation and test
+single linked list implementation and test
+单链表实现与测试
+
+Compile and Run:
 
 gcc build
 
@@ -7,7 +10,6 @@ $make
 
 $./single_list_test
 
-2016-01-08
 
 Functions list:
 
