@@ -216,6 +216,58 @@ SL_LIST sl_SelectSort(SL_LIST list)
 }
 
 /*
+** bubble method return the sorted list
+*/
+SL_LIST sl_BubbleSort(SL_LIST list)
+{
+   pSL_NODE pend;
+   pSL_NODE pcurmax, p1, p2;
+   
+#ifdef NON_HEADER_NODE
+   /* add new node p1 to original list, list([list]) change to list([p1]->[list]) */
+   p1 = (pSL_NODE) malloc(sizeof(SL_NODE));
+   p1->next = list;
+   list = p1;
+#endif
+
+/*
+**    [Header *]--------->[L *]----------->[S *]--------->[ ]
+**    [Header *]--------->[S *]----------->[L *]--------->[ ]
+*/
+
+   /* loop1: loop2 will set the largest node as the bottom of the list to create new end*/
+   for (pend = NULL; pend != list; pend = pcurmax)
+   {
+      /* loop2: p1, pcurmax initialize to the new list beginning every bubble loop   *
+        * pcurmax record the largest node which will be ignored in next loop1         */
+      for (pcurmax = p1= list; p1->next->next != pend; p1 = p1->next)
+      {
+         if (p1->next->data > p1->next->next->data)
+         {
+            /* @1 save L's original next pointer */
+            p2 = p1->next->next;
+            /* @2 change L's current next pointer */
+            p1->next->next = p2->next;
+            /* @3 change S's current next pointer */
+            p2->next = p1->next;
+            /* @4 change p1's current next pointer */
+            p1->next = p2;
+            /* @5 change pcur to current large node */
+            pcurmax = p1->next->next;
+         }
+      }
+   }
+#ifdef NON_HEADER_NODE
+   p1 = list;
+   list = list->next;
+   free(p1);
+   p1 = NULL;
+#endif
+
+   return list;
+}
+
+/*
 ** return the length without counting header node
 */
 int sl_Size(SL_LIST list)

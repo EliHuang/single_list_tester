@@ -76,7 +76,7 @@ int main(void)
    printf("\nInput enable(0/1) list loop in the list:\n");
    int en_loop = 0;
    scanf("%d", &en_loop);
-   if (en_loop)
+   if ( TRUE == en_loop)
    {
       (*list).next->next = (*list).next; 
       printf("\nMake list has loop isExistLookBackup: %d\n", isExistLookBackUp(list));
@@ -84,8 +84,24 @@ int main(void)
    }
 
    /* sort the list */
-   printf("\nSort the list:\n");
-   list = sl_SelectSort(list);
+   printf("\nChoose below method to sort the list:\n");
+   printf("1: Select Sort\n");
+   printf("2: Bubble Sort\n");
+   int sel = 1;
+   scanf("%d", &sel);
+   switch (sel)
+   {
+      case 1:
+         sl_SelectSort(list);
+         break;
+      case 2:
+         sl_BubbleSort(list);
+         break;
+      default:
+         sl_SelectSort(list);
+         break;
+   }
+
    sl_Print( list);
    for (i = 1; i <= sl_Size(list); i++)
    {
@@ -99,7 +115,7 @@ int main(void)
    while (size--)
    {
       if (sl_Delete(list, 1, &data))
-         printf("delete the position 1 with data %d, size change to %d, isEmpty %d\n", data, sl_Size(list), isSlEmpty(list));
+         printf("delete the position 1 with data %d, size change to %d, isEmpty: %d\n", data, sl_Size(list), isSlEmpty(list));
      
    }
    

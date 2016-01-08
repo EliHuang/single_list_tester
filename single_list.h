@@ -19,6 +19,7 @@ BOOL sl_Get(SL_LIST list, int pos, int* pdata);
 BOOL sl_Set(SL_LIST list, int pos, int data);
 BOOL sl_Find(SL_LIST list, int* pos, int data);
 SL_LIST sl_SelectSort(SL_LIST list);
+SL_LIST sl_BubbleSort(SL_LIST list);
 int sl_Size(SL_LIST list);
 BOOL isSlEmpty(SL_LIST list);
 BOOL isExistLookBackUp(SL_NODE *node);
